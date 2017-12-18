@@ -1,0 +1,106 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+
+{% block commentcss %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "dashboard/vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static "dashboard/vendor/metisMenu/metisMenu.min.css" %}" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="{% static "dashboard/vendor/datatables-plugins/dataTables.bootstrap.css" %}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{% static "dashboard/vendor/datatables-responsive/dataTables.responsive.css" %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static "dashboard/dist/css/sb-admin-2.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "dashboard/vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block page %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">服务器列表</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            点击查看详细进程信息
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <table width="100%" class="table table-striped table-bordered table-hover compact" id="dataTables-example">
+                                <thead>
+                                    <tr class="gradeA" width="100%">
+                                        <th>IP addresses</th>
+                                        <th>cpu count</th>
+                                        <th>cpu freq</th>
+                                        <th>memory</th>
+                                        <th>swap</th>
+                                        <th>CreateTime</th>
+                                        <th>server uuid</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for host in all_hosts %}
+                                    <tr class="gradeC">
+                                        <td><a href="{% url 'dashboard:page_serveruuid_tables' server_uuid=host.server_uuid %}">{{ host.ip_addresses }}</a></td>
+                                        <td>{{ host.cpu_count }}</td>
+                                        <td>{{ host.cpu_freq }}</td>
+                                        <td>{{ host.virtual_memory }}</td>
+                                        <td>{{ host.swap_memory }}</td>
+                                        <td width="140" class="left">{{ host.createtime|date:"Y-m-d H:i:s" }}</td>
+                                        <td><a href="{% url 'dashboard:page_serveruuid_tables' server_uuid=host.server_uuid %}">{{ host.server_uuid }}</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+                            <div class="well">
+                                <h4>数据说明</h4>
+                                <p>数据量很大，请耐心。<a target="_blank" href="{% url "dashboard:page_index" %}">返回DashBoard</a>.</p>
+                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+{% endblock %}
+
+
+{% block customjs %}
+
+    <!-- DataTables JavaScript -->
+    <script src="{% static "dashboard/vendor/datatables/js/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "dashboard/vendor/datatables-plugins/dataTables.bootstrap.min.js" %}"></script>
+    <script src="{% static "dashboard/vendor/datatables-responsive/dataTables.responsive.js" %}"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+{% endblock %}
+
