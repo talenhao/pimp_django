@@ -48,10 +48,10 @@ def tables(request, server_uuid=None):
     :param server_uuid:
     :return:
     """
-    all_processes = Processes.objects.all()[:100]
+    all_processes = Processes.objects.all().exclude(p_ppid=2).exclude(p_pid__lte=2)
     if server_uuid:
         # for_server_uuid = get_object_or_404(Con, server_uuid=server_uuid)
-        all_processes = Processes.objects.filter(server_uuid=server_uuid).exclude(p_ppid=2).exclude(p_pid__lte=2)
+        all_processes = Processes.objects.filter(server_uuid=server_uuid).exclude(p_ppid=2).exclude(p_ppid=3).exclude(p_pid__lte=3)[:100]
     return render(request,
                   "dashboard/pages/tables.html",
                   {"all_processes": all_processes,
