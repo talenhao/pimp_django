@@ -1,0 +1,56 @@
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-bookmark-o fa-fw"></i> 网站快捷访问列表
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <ul class="timeline">
+                                    <li>
+                                        <div class="timeline-badge"><i class="fa fa-tasks"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <h4 class="timeline-title">RunDeck Server</h4>
+                                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> one hours ago via tianfei</small>
+                                                </p>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <p><a href="http://127.0.0.1:8080">a</a></p>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="timeline-badge info"><i class="fa fa-save"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
+                                                <hr>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="fa fa-gear"></i> <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a href="#">Action</a>
+                                                        </li>
+                                                        <li><a href="#">Another action</a>
+                                                        </li>
+                                                        <li><a href="#">Something else here</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li><a href="#">Separated link</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->

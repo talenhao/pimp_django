@@ -1,0 +1,11 @@
+{% block otherlinks %}
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 其它平台快速访问链接<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="http://talenhao.github.io">Talen Hao's Blog</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+{% endblock %}

@@ -402,25 +402,10 @@
                             <!-- /.nav-second-level -->
                         </li>
                         {% endcomment %}
-                        <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 其它平台快速访问链接<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="http://192.168.1.188:4440">Rundeck 任务调度</a>
-                                </li>
-                                <li>
-                                    <a href="http://192.168.1.228:28880">AlertA 告警汇总</a>
-                                </li>
-                                <li>
-                                    <a href="http://192.168.1.53:12345">Graylog 2 日志收集</a>
-                                </li>
-                                <li>
-                                    <a href="http://192.168.1.138:18080/">SCE 服务链接交互图</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-
+                        {% comment  %}
+                        其它平台的链接
+                        {% endcomment %}
+                        {% include "dashboard/pages/common/otherlinks.html" %}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
