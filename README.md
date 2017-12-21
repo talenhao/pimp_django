@@ -24,3 +24,9 @@ DATABASES = {
  * pip install uwsgi
 
  * run /usr/local/_python3.6.1/bin/uwsgi --ini /home/pimp/uwsgi.ini
+
+
+## 页面展示
+![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-3.png?raw=true)
+![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-2.png?raw=true)
+![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-1.png?raw=true)
