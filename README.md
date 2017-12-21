@@ -1,6 +1,9 @@
 # pimp_django
-https://github.com/talenhao/ProcessInformationManagementPlatform的dashboard
-Use sb admin 2 模板 
+A dashboard for Porcess Information Management Platform (PIMP 进程信息平台)
+
+agent is here:
+   https://github.com/talenhao/ProcessInformationManagementPlatform
+Use sb admin 2 template
 
  * rename pimp/dashboard/templates/dashboard/pages/common/otherlinks.html.for_git to otherlinks.html, you can add your Friendship links in this page.
  * rename pimp/dashboard/templates/dashboard/pages/common/otherlinksinmainpage.html.for_git to otherlinksinmainpage.html, you can add some thing as timeline.
