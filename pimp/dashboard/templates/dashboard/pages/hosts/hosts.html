@@ -50,6 +50,7 @@
                                         <th>memory</th>
                                         <th>swap</th>
                                         <th>CreateTime</th>
+                                        <th>SerialNumber</th>
                                         <th>server uuid</th>
                                     </tr>
                                 </thead>
@@ -62,6 +63,7 @@
                                         <td>{{ host.virtual_memory }}</td>
                                         <td>{{ host.swap_memory }}</td>
                                         <td width="140" class="left">{{ host.createtime|date:"Y-m-d H:i:s" }}</td>
+                                        <td>{{ host.serial_number }}</td>
                                         <td><a href="{% url 'dashboard:page_serveruuid_tables' server_uuid=host.server_uuid %}">{{ host.server_uuid }}</a></td>
                                     </tr>
                                 {% endfor %}

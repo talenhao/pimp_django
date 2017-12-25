@@ -20,6 +20,7 @@ class Hosts(models.Model):
     virtual_memory = models.TextField(blank=True, null=True)
     swap_memory = models.TextField(blank=True, null=True)
     createtime = models.DateTimeField(db_column='CreateTime', blank=True, null=True)  # Field name made lowercase.
+    serial_number = models.CharField(max_length=15, blank=True, null=True)
 
     class Meta:
         managed = False
