@@ -26,6 +26,9 @@ class Hosts(models.Model):
         managed = False
         db_table = 'hosts'
 
+    def __str__(self):
+        return self.server_uuid
+
 
 class Processes(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -45,3 +48,6 @@ class Processes(models.Model):
     class Meta:
         managed = False
         db_table = 'processes'
+
+    def __str__(self):
+        return self.p_name

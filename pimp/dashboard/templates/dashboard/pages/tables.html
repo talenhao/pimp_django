@@ -45,13 +45,13 @@
                         <div class="panel-body">
                             <table width="100%" class="table table-striped table-bordered table-hover compact" id="dataTables-example">
                                 <thead>
-                                    <tr class="gradeA" width="100%">
+                                    <tr class="gradeA" >
                                         <th class="center">process</th>
                                         <th class="center">pid</th>
                                         <th class="center">ppid</th>
                                         <th class="center">status</th>
-                                        <th class="center" width="17%">exe</th>
-                                        <th class="center" width="15%">cwd</th>
+                                        <th class="center">exe</th>
+                                        <th class="center">cwd</th>
                                         <th class="center">createtime</th>
                                         <th class="center">user</th>
                                         <th class="center">listen</th>
@@ -66,9 +66,9 @@
                                         <td class="left">{{ process.p_pid }}</td>
                                         <td class="left">{{ process.p_ppid }}</td>
                                         <td class="left">{{ process.p_status }}</td>
-                                        <td width="17%" class="left">{{ process.p_exe }}</td>
-                                        <td width="15%" class="left">{{ process.p_cwd }}</td>
-                                        <td width="140" class="left">{{ process.p_create_time|date:"Y-m-d H:i:s" }}</td>
+                                        <td class="left">{{ process.p_exe }}</td>
+                                        <td class="left">{{ process.p_cwd }}</td>
+                                        <td class="left">{{ process.p_create_time|date:"Y-m-d H:i:s" }}</td>
                                         <td class="left">{{ process.p_username }}</td>
                                         <td class="left">{{ process.listen_ip_port }}</td>
                                         <td class="left">{{ process.p_cmdline }}</td>
