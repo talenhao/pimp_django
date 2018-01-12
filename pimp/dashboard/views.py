@@ -35,6 +35,7 @@ def index(request):
     top_process = Processes.objects.values('p_name').annotate(num_processes=Count(1)).order_by('-num_processes')[:8]
     the_oldest_process = Processes.objects.order_by('p_create_time')[0]
     the_newest_process = Processes.objects.order_by('-p_create_time')[0]
+    the_latest_update_time = Processes.objects.order_by('-createtime')[0].createtime
     return render(request,
                   "dashboard/pages/index.html",
                   {"server_count": server_count,
@@ -42,7 +43,8 @@ def index(request):
                    "server_ip_addresses": server_ip_addresses,
                    "top_process": top_process,
                    "the_oldest_process": the_oldest_process,
-                   "the_newest_process": the_newest_process})
+                   "the_newest_process": the_newest_process,
+                   "the_latest_update_time": the_latest_update_time})
 
 
 def tables(request, server_uuid=None):
