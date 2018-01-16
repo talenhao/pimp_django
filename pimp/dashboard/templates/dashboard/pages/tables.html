@@ -47,7 +47,7 @@
                                 <thead>
                                     <tr class="gradeA" >
                                         <th class="center">process</th>
-                                        <th class="center">pid</th>
+                                        {# <th class="center">pid</th> #}
                                         <th class="center">ppid</th>
                                         <th class="center">status</th>
                                         <th class="center">exe</th>
@@ -56,14 +56,13 @@
                                         <th class="center">user</th>
                                         <th class="center">listen</th>
                                         <th class="center">cmdline</th>
-                                        <!--<th>server uuid</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {% for process in all_processes %}
                                     <tr class="gradeC">
                                         <td class="left">{{ process.p_name }}</td>
-                                        <td class="left">{{ process.p_pid }}</td>
+                                        {# <td class="left">{{ process.p_pid }}</td> #}
                                         <td class="left">{{ process.p_ppid }}</td>
                                         <td class="left">{{ process.p_status }}</td>
                                         <td class="left">{{ process.p_exe }}</td>
@@ -72,7 +71,6 @@
                                         <td class="left">{{ process.p_username }}</td>
                                         <td class="left">{{ process.listen_ip_port }}</td>
                                         <td class="left">{{ process.p_cmdline }}</td>
-                                        <!--<td>{{ process.server_uuid.server_uuid }}</td>-->
                                     </tr>
                                 {% endfor %}
                                 </tbody>
