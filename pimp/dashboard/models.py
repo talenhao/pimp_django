@@ -44,6 +44,7 @@ class Processes(models.Model):
     listen_ip_port = models.TextField(blank=True, null=True)
     createtime = models.DateTimeField(db_column='CreateTime', blank=True, null=True)  # Field name made lowercase.
     server_uuid = models.ForeignKey(Hosts, db_column='server_uuid')
+    old_mark = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
