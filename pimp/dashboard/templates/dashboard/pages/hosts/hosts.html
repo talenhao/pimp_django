@@ -50,7 +50,7 @@
                                         <th>cpu freq</th>
                                         <th>memory</th>
                                         <th>swap</th>
-                                        <th>Update Time</th>
+                                        <th>Added Time</th>
                                         <th>SerialNumber</th>
                                         <th>server uuid</th>
                                     </tr>
@@ -63,7 +63,8 @@
                                         <td>{{ host.cpu_freq }}</td>
                                         <td>{{ host.virtual_memory }}</td>
                                         <td>{{ host.swap_memory }}</td>
-                                        <td class="left">{{ host.createtime|naturaltime }}</td>
+                                        <td class="left">{{ host.createtime }}</td>
+                                        {% comment %}<td class="left">{{ host.createtime|naturaltime }}</td>{% endcomment %}
                                         {% comment %}
                                         <td width="140" class="left">{{ host.createtime|date:"Y-m-d H:i:s" }}</td>
                                         {% endcomment %}

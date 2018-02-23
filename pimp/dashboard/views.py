@@ -9,10 +9,11 @@ from .models import Hosts
 from django.db.models import Count
 
 server_uuids = Hosts.objects.values("server_uuid").order_by("server_uuid")
-process_all = Processes.objects.filter(old_mark=0)
 server_ip_addresses = Hosts.objects.values('ip_addresses').order_by("ip_addresses")
 exclude_list = r"(agetty|mcelog|NetworkManager|polkitd|smartd|lvmetad|dbus-daemon|udevd|auditd|irqbalance|hald-runner" \
                r"|acpid|login|mingetty|qmgr|crond|master|atd|abrtd|console-kit-daemon|hald|automount)+"
+process_all = Processes.objects.filter(old_mark=0).exclude(p_ppid=1).exclude(p_ppid=2).exclude(
+    p_name__regex=exclude_list).exclude(p_pid__lte=3)
 
 
 def dashboard(request):
@@ -34,24 +35,12 @@ def index(request):
     server_count = server_uuids.count()
     process_count = process_all.count()
     # top_process = Processes.objects.raw('select p_name,count(1) cnt from processes group by p_name order by cnt desc')
-    top_process = Processes.objects.filter(old_mark=0).exclude(p_ppid=2
-                                            ).exclude(p_ppid=3
-                                                      ).exclude(p_pid__lte=3
-                                                                ).exclude(p_name__regex=exclude_list
-                                                                          ).values('p_name'
-                                                                                   ).annotate(num_processes=Count(1)
-                                                                                              ).order_by('-num_processes')[:8]
-    the_oldest_process = Processes.objects.filter(old_mark=0).exclude(p_ppid=2
-                                                   ).exclude(p_ppid=3
-                                                             ).exclude(p_pid__lte=3
-                                                                       ).exclude(p_name__regex=exclude_list
-                                                                                 ).order_by('p_create_time')[0]
-    the_newest_process = Processes.objects.filter(old_mark=0).exclude(p_ppid=2
-                                                   ).exclude(p_ppid=3
-                                                             ).exclude(p_pid__lte=3
-                                                                       ).exclude(p_name__regex=exclude_list
-                                                                                 ).order_by('-p_create_time')[0]
-    the_latest_update_time = Processes.objects.filter(old_mark=0).order_by('-createtime')[0].createtime
+    top_process = Processes.objects.filter(old_mark=0).exclude(p_ppid=2).exclude(p_ppid=3).exclude(
+        p_pid__lte=3).exclude(p_name__regex=exclude_list).values('p_name').annotate(
+        num_processes=Count(1)).order_by('-num_processes')[:8]
+    the_oldest_process = process_all.order_by('p_create_time')[0]
+    the_newest_process = process_all.order_by('-p_create_time')[0]
+    the_latest_update_time = process_all.order_by('-createtime')[0].createtime
     return render(request,
                   "dashboard/pages/index.html",
                   {"server_count": server_count,
@@ -70,24 +59,10 @@ def tables(request, server_uuid=None):
     :param server_uuid:
     :return:
     """
-    all_processes = Processes.objects.filter(old_mark=0).exclude(p_ppid=2).exclude(p_pid__lte=2)[:100]
+    all_processes = process_all[:100]
     if server_uuid:
         # for_server_uuid = get_object_or_404(Con, server_uuid=server_uuid)
-        all_processes = Processes.objects.filter(old_mark=0).filter(server_uuid=server_uuid
-                                                 ).exclude(p_ppid=2
-                                                           ).exclude(p_ppid=3
-                                                                     ).exclude(p_pid__lte=3
-                                                                               ).exclude(p_name__regex=exclude_list
-                                                                                         ).values("p_name",
-                                                                                                    "p_ppid",
-                                                                                                    "p_status",
-                                                                                                    "p_exe",
-                                                                                                    "p_cwd",
-                                                                                                    "p_create_time",
-                                                                                                    "p_username",
-                                                                                                    "listen_ip_port",
-                                                                                                    "p_cmdline"
-                                                                                                    ).distinct()
+        all_processes = process_all.filter(server_uuid=server_uuid).order_by("p_cmdline").distinct()
     return render(request,
                   "dashboard/pages/tables.html",
                   {"all_processes": all_processes,
