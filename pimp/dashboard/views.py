@@ -7,6 +7,11 @@ from .models import Hosts
 
 # Create your views here.
 from django.db.models import Count
+from elasticsearch_dsl import Search
+from elasticsearch_dsl.connections import connections
+from .forms import SearchForm
+from django.views.generic import View
+
 
 server_uuids = Hosts.objects.values("server_uuid").order_by("server_uuid")
 server_ip_addresses = Hosts.objects.values('ip_addresses').order_by("ip_addresses")
@@ -75,3 +80,22 @@ def hosts(request):
     return render(request,
                   "dashboard/pages/hosts/hosts.html",
                   {"all_hosts": all_hosts})
+
+
+class SearchView(View):
+    def get(self, request):
+        form = SearchForm(request.GET)
+        ctx = {
+            "form": form
+        }
+        if form.is_valid():
+            connections.create_connection(hosts="127.0.0.1")
+            cmdline_query = form.cleaned_data["cmdline"]
+            if cmdline_query:
+                es_search = Search(index='esprocesses').query("match", cmdline=cmdline_query)
+            else:
+                es_search = Search(index="esprocesses")
+            result = es_search.execute()
+            ctx["cmdline"] = result.hits
+        return render(request, "dashboard/pages/search.html", ctx)
+
