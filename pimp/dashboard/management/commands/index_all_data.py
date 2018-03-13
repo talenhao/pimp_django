@@ -10,6 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         elasticsearch_dsl.connections.connections.create_connection(hosts=["127.0.0.1"])
+        elasticsearch_dsl.Index(name='esprocesses').delete()
         for process in process_all:
             # host = Hosts.objects.get(server_uuid=process.server_uuid)
             esp = es_docs.EsProcess(meta={'id': process.pk},

@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^pages/tables.html$', views.tables, name='page_tables'),
     url(r'^pages/hosts/hosts.html$', views.hosts, name='page_hosts'),
     url(r'^serveruuid/(?P<server_uuid>[-\w]+)/$', views.tables, name='page_serveruuid_tables'),
-    url(r'^pages/search.html$', views.SearchView.as_view(), name='search'),
+    url(r'^pages/search.html$', views.search, name='search'),
 ]

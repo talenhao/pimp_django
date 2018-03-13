@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 
 from django.shortcuts import get_object_or_404
@@ -17,7 +18,7 @@ server_uuids = Hosts.objects.values("server_uuid").order_by("server_uuid")
 server_ip_addresses = Hosts.objects.values('ip_addresses').order_by("ip_addresses")
 exclude_list = r"(agetty|mcelog|NetworkManager|polkitd|smartd|lvmetad|dbus-daemon|udevd|auditd|irqbalance|hald-runner" \
                r"|acpid|login|mingetty|qmgr|crond|master|atd|abrtd|console-kit-daemon|hald|automount)+"
-process_all = Processes.objects.filter(old_mark=0).exclude(p_ppid=1).exclude(p_ppid=2).exclude(
+process_all = Processes.objects.filter(old_mark=0).exclude(p_ppid=2).exclude(
     p_name__regex=exclude_list).exclude(p_pid__lte=3)
 
 
@@ -82,20 +83,17 @@ def hosts(request):
                   {"all_hosts": all_hosts})
 
 
-class SearchView(View):
-    def get(self, request):
-        form = SearchForm(request.GET)
-        ctx = {
-            "form": form
-        }
-        if form.is_valid():
-            connections.create_connection(hosts="127.0.0.1")
-            cmdline_query = form.cleaned_data["cmdline"]
-            if cmdline_query:
-                es_search = Search(index='esprocesses').query("match", cmdline=cmdline_query)
-            else:
-                es_search = Search(index="esprocesses")
-            result = es_search.execute()
-            ctx["cmdline"] = result.hits
+def search(request):
+    ctx = {}
+    if 'cmdline' in request.GET:
+        connections.create_connection(hosts="127.0.0.1")
+        cmdline_query = request.GET["cmdline"]
+        if cmdline_query:
+            es_search = Search(index="esprocesses").query("match", p_cmdline=cmdline_query)
+        else:
+            es_search = Search(index="esprocesses")
+        result = es_search.scan()
+        count = es_search.count()
+        ctx["cmdline"] = result
+        ctx["count"] = count
         return render(request, "dashboard/pages/search.html", ctx)
-
