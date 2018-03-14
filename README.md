@@ -25,7 +25,8 @@ DATABASES = {
 }
 ```
  * pip install uwsgi
-
+ * Add processes from db to elasticsearch.
+ * run /usr/local/_python3.6.1/bin/python3 manage.py index_all_data
  * run /usr/local/_python3.6.1/bin/uwsgi --ini /home/pimp/uwsgi.ini
 
 
@@ -33,3 +34,5 @@ DATABASES = {
 ![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-3.png?raw=true)
 ![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-2.png?raw=true)
 ![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-1.png?raw=true)
+![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-4.png?raw=true)
+![image](https://github.com/talenhao/pimp_django/blob/master/imgs/pimp-5.png?raw=true)
