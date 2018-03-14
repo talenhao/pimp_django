@@ -287,7 +287,7 @@
                             <form method="get" action="{% url "dashboard:search" %}">
                                 <div class="input-group custom-search-form">
                                     {% csrf_token %}
-                                    <input name="cmdline" type="text" placeholder="搜索" class="form-control" required>
+                                    <input name="query_kw" type="text" placeholder="搜索" class="form-control" required>
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="submit">
                                             <i class="fa fa-search">搜索</i>

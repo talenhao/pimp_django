@@ -14,7 +14,7 @@ class EsProcess(DocType):
     p_create_time = Date()
     p_cmdline = Text()
     listen_ip_port = Text()
-    server_uuid = Text()
+    server = Text()
     old_mark = Integer()
 
     class Meta:

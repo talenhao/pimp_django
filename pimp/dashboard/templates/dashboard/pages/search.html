@@ -39,6 +39,7 @@
                                         <th class="center">createtime</th>
                                         <th class="center">user</th>
                                         <th class="center">listen</th>
+                                        <th class="center">server</th>
                                         <th class="center">cmdline</th>
                                     </tr>
                                 </thead>
@@ -54,6 +55,7 @@
                                         <td class="left">{{ process.p_create_time}}</td>
                                         <td class="left">{{ process.p_username }}</td>
                                         <td class="left">{{ process.listen_ip_port }}</td>
+                                        <td class="left">{{ process.server }}</td>
                                         <td class="left">{{ process.p_cmdline }}</td>
                                     </tr>
                                 {% endfor %}

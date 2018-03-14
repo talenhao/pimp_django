@@ -1,7 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-
 from django.shortcuts import get_object_or_404
 from .models import Processes
 from .models import Hosts
@@ -10,8 +7,6 @@ from .models import Hosts
 from django.db.models import Count
 from elasticsearch_dsl import Search
 from elasticsearch_dsl.connections import connections
-from .forms import SearchForm
-from django.views.generic import View
 
 
 server_uuids = Hosts.objects.values("server_uuid").order_by("server_uuid")
@@ -20,6 +15,7 @@ exclude_list = r"(agetty|mcelog|NetworkManager|polkitd|smartd|lvmetad|dbus-daemo
                r"|acpid|login|mingetty|qmgr|crond|master|atd|abrtd|console-kit-daemon|hald|automount)+"
 process_all = Processes.objects.filter(old_mark=0).exclude(p_ppid=2).exclude(
     p_name__regex=exclude_list).exclude(p_pid__lte=3)
+es_index_name = 'esprocesses'
 
 
 def dashboard(request):
@@ -85,13 +81,14 @@ def hosts(request):
 
 def search(request):
     ctx = {}
-    if 'cmdline' in request.GET:
+    if 'query_kw' in request.GET:
         connections.create_connection(hosts="127.0.0.1")
-        cmdline_query = request.GET["cmdline"]
-        if cmdline_query:
-            es_search = Search(index="esprocesses").query("match", p_cmdline=cmdline_query)
+        query_keywords = request.GET["query_kw"]
+        if query_keywords:
+            es_search = Search(index=es_index_name).query(
+                "multi_match", query=query_keywords, fields=['p_cmdline', 'p_cwd'])
         else:
-            es_search = Search(index="esprocesses")
+            es_search = Search(index=es_index_name)
         result = es_search.scan()
         count = es_search.count()
         ctx["cmdline"] = result
